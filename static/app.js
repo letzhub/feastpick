@@ -159,7 +159,7 @@
         <h1>Plan the menu together.<br/>Vote. Claim. Feast.</h1>
         <p class="lead">
           Everyone proposes dishes, marks vegan / alcohol / fish / meat,
-          votes for favourites, and sees who added what — and who will bring it.
+          votes for favourites, and sees who added what  -  and who will bring it.
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="/new">Create a feast</a>
@@ -231,7 +231,7 @@
     const starters = [
       { name: 'Drinks', description: 'What should we pour? Soft drinks, wine, coffee…', icon: '🥂' },
       { name: 'Main dishes', description: 'Centrepiece courses. Tag meat / fish / vegan on each option.', icon: '🍽️' },
-      { name: 'Desserts', description: 'Sweet finish — pies, cakes, fruit.', icon: '🍰' },
+      { name: 'Desserts', description: 'Sweet finish  -  pies, cakes, fruit.', icon: '🍰' },
       { name: 'Sides & extras', description: 'Salads, breads, cheeses, snacks.', icon: '🥗' }
     ]
 
@@ -369,7 +369,7 @@
               </div>
             </div>`
         }).join('')
-        : `<p class="empty">No options yet — be the first to add one.</p>`
+        : `<p class="empty">No options yet  -  be the first to add one.</p>`
 
       return `
         <section class="card" data-cat="${esc(cat.id)}">

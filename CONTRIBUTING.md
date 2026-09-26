@@ -4,10 +4,10 @@ Thanks for helping improve FeastPick. Small, focused contributions are welcome.
 
 ## Ways to contribute
 
-- **Bug reports** - use a GitHub Issue; include steps, browser/OS, and FeastPick version (`/api/health`)
-- **Feature ideas** - open an Issue first so we can discuss scope
-- **Code / docs** - fork → branch → pull request
-- **Translations / accessibility** - very welcome
+- **Bug reports**: use a GitHub Issue; include steps, browser/OS, and FeastPick version (`/api/health`)
+- **Feature ideas**: open an Issue first so we can discuss scope
+- **Code / docs**: fork → branch → pull request
+- **Translations / accessibility**: very welcome
 
 ## Development setup
 
@@ -24,9 +24,11 @@ cd feastpick
 docker compose up -d --build
 ```
 
-App: http://localhost:3011/  
-Demo: http://localhost:3011/e/christmas-eve-demo  
-Health: http://localhost:3011/api/health
+App: http://localhost:8080/  
+Demo: http://localhost:8080/e/christmas-eve-demo  
+Health: http://localhost:8080/api/health
+
+Port **8080** is used both inside the container and on the host.
 
 ### Run without Docker
 
@@ -36,7 +38,7 @@ source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 export FEASTPICK_DATA="$(pwd)/data"
 mkdir -p data
-uvicorn app.main:app --reload --host 0.0.0.0 --port 3011
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
 ```
 
 ## Project layout
@@ -58,21 +60,17 @@ CHANGELOG.md   Human-readable release notes
 - Do not commit real user data, secrets, or local `data/*.db`
 - User-facing strings: clear, friendly English
 - New API fields should remain backward-compatible when possible
+- Pin dependency versions in `requirements.txt` to current stable releases
 
 ## Tests / checks before a PR
 
 ```bash
-# Build image
 docker compose build
-
-# Smoke test
 docker compose up -d
-curl -fsS http://127.0.0.1:3011/api/health
-curl -fsS http://127.0.0.1:3011/api/meta | head
+curl -fsS http://127.0.0.1:8080/api/health
+curl -fsS http://127.0.0.1:8080/api/meta | head
 docker compose down
 ```
-
-If you change Python deps, pin versions in `requirements.txt`.
 
 ## Pull requests
 
@@ -81,9 +79,9 @@ If you change Python deps, pin versions in `requirements.txt`.
 3. Open a PR against `main` and fill in the template
 4. Link related issues (`Fixes #123`)
 
-Maintainers may ask for small tweaks; that’s normal.
+Maintainers may ask for small tweaks; that is normal.
 
-## Versioning & releases (maintainers)
+## Versioning and releases (maintainers)
 
 We use [Semantic Versioning](https://semver.org/):
 
@@ -106,14 +104,14 @@ Release flow:
    ```
 
 5. GitHub Actions builds the image and publishes:
-   - `ghcr.io/<owner>/feastpick:1.1.0`
-   - `ghcr.io/<owner>/feastpick:1.1`
-   - `ghcr.io/<owner>/feastpick:latest`
+   - `ghcr.io/letzhub/feastpick:1.1.0`
+   - `ghcr.io/letzhub/feastpick:1.1`
+   - `ghcr.io/letzhub/feastpick:latest`
 6. A GitHub Release is created from the tag (notes from CHANGELOG / generated notes)
 
 ## Code of conduct
 
-Be respectful. No harassment, spam, or bad-faith contributions. Maintainers may close issues/PRs that don’t meet that bar.
+Be respectful. No harassment, spam, or bad-faith contributions. Maintainers may close issues/PRs that do not meet that bar.
 
 ## License
 

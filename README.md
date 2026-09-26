@@ -1,13 +1,13 @@
 # FeastPick
 
-**Family feast planner** - propose dishes, mark dietary tags, vote on favourites, and claim who brings what.
+**Family feast planner**: propose dishes, mark dietary tags, vote on favourites, and claim who brings what.
 
 Share one board link. Guests join with a first name. No accounts required.
 
 [![CI](https://github.com/letzhub/feastpick/actions/workflows/ci.yml/badge.svg)](https://github.com/letzhub/feastpick/actions/workflows/ci.yml)
 [![Release](https://github.com/letzhub/feastpick/actions/workflows/release.yml/badge.svg)](https://github.com/letzhub/feastpick/actions/workflows/release.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GHCR](https://img.shields.io/badge/GHCR-feastpick-blue)](https://github.com/letzhub/feastpick/pkgs/container/feastpick)
+[![GHCR](https://img.shields.io/badge/GHCR-letzhub%2Ffeastpick-blue)](https://github.com/letzhub/feastpick/pkgs/container/feastpick)
 
 ---
 
@@ -18,10 +18,10 @@ Share one board link. Guests join with a first name. No accounts required.
 - **Menu options** proposed by anyone on the board
 - **Dietary badges**: vegan · alcohol · fish · meat
 - **Voting** (fair cap per person per category)
-- **“I’ll bring this”** claims
+- **"I'll bring this"** claims
 - **Live-ish board** (client polls every few seconds)
 - **Demo board** seeded on first start: `/e/christmas-eve-demo`
-- **Single SQLite file** - easy backups
+- **Single SQLite file**: easy backups
 
 ---
 
@@ -31,8 +31,6 @@ Share one board link. Guests join with a first name. No accounts required.
 
 - [Docker](https://docs.docker.com/get-docker/) Engine 24+
 - Docker Compose v2
-
-### Option A - build from source
 
 ```bash
 git clone https://github.com/letzhub/feastpick.git
@@ -44,9 +42,11 @@ Open:
 
 | | URL |
 |--|-----|
-| App | http://localhost:3011/ |
-| Demo | http://localhost:3011/e/christmas-eve-demo |
-| Health | http://localhost:3011/api/health |
+| App | http://localhost:8080/ |
+| Demo | http://localhost:8080/e/christmas-eve-demo |
+| Health | http://localhost:8080/api/health |
+
+The app listens on **port 8080** inside the container and on the host (same port).
 
 Stop:
 
@@ -56,45 +56,23 @@ docker compose down
 
 Data lives in the Docker volume `feastpick_feastpick-data` (or project-prefixed). To wipe data: `docker compose down -v`.
 
-### Option B - run the published image (GHCR)
-
-After the first GitHub Release, images are published to GitHub Container Registry:
+Published images (after a release):
 
 ```text
-ghcr.io/letzhub/feastpick:1.0.0
-ghcr.io/letzhub/feastpick:1.0
+ghcr.io/letzhub/feastpick:1.1.0
+ghcr.io/letzhub/feastpick:1.1
 ghcr.io/letzhub/feastpick:latest
 ```
 
-```bash
-# optional: copy and edit
-cp .env.example .env
-# set FEASTPICK_VERSION=1.0.0 (GHCR_OWNER defaults to letzhub)
+Pin a version with `FEASTPICK_VERSION` in `.env` (see `.env.example`), then `docker compose pull && docker compose up -d`.
 
-export GHCR_OWNER=letzhub
-export FEASTPICK_VERSION=1.0.0
-
-# pull + run (skip local build)
-docker compose pull
-docker compose up -d
-```
-
-If the package is **private**, authenticate once:
-
-```bash
-echo "$GITHUB_TOKEN" | docker login ghcr.io -u YOUR_GITHUB_USER --password-stdin
-```
-
-Public packages can be pulled without login.
-
-### Useful environment variables
+### Environment
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `FEASTPICK_PORT` | `3011` | Host port mapped to the app |
-| `FEASTPICK_VERSION` | `1.0.0` | Image tag / version label |
-| `GHCR_OWNER` | `letzhub` | GitHub user/org for GHCR image name |
-| `FEASTPICK_DATA` | `/app/data` | Data dir **inside** the container |
+| `FEASTPICK_VERSION` | `1.1.0` | Image tag / version label |
+| `FEASTPICK_DATA` | `/app/data` | Data dir inside the container |
+| `PORT` | `8080` | Listen port (keep 8080 unless you know you need another) |
 
 ---
 
@@ -106,7 +84,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 mkdir -p data
 export FEASTPICK_DATA="$(pwd)/data"
-uvicorn app.main:app --host 0.0.0.0 --port 3011
+uvicorn app.main:app --host 0.0.0.0 --port 8080
 ```
 
 ---
@@ -125,11 +103,11 @@ uvicorn app.main:app --host 0.0.0.0 --port 3011
 | `POST` | `/api/options/{id}/bring` | Claim / release |
 | `DELETE` | `/api/options/{id}` | Delete own unclaimed option |
 
-Interactive docs when the app is running: http://localhost:3011/docs
+Interactive docs when the app is running: http://localhost:8080/docs
 
 ---
 
-## Versioning & releases
+## Versioning and releases
 
 FeastPick follows [Semantic Versioning](https://semver.org/) and [Keep a Changelog](https://keepachangelog.com/).
 
@@ -141,38 +119,26 @@ FeastPick follows [Semantic Versioning](https://semver.org/) and [Keep a Changel
 
 **Maintainer release checklist** is in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-Example:
-
 ```bash
 # after updating VERSION + CHANGELOG
 git add VERSION CHANGELOG.md
-git commit -m "chore(release): v1.0.0"
-git tag -a v1.0.0 -m "v1.0.0"
+git commit -m "chore(release): v1.1.0"
+git tag -a v1.1.0 -m "v1.1.0"
 git push origin main --tags
 ```
 
----
+The [release workflow](.github/workflows/release.yml) publishes:
 
-## GitHub Container Registry
+- `ghcr.io/letzhub/feastpick:X.Y.Z`
+- `ghcr.io/letzhub/feastpick:X.Y`
+- `ghcr.io/letzhub/feastpick:X`
+- `ghcr.io/letzhub/feastpick:latest`
 
-The [release workflow](.github/workflows/release.yml) runs on tags matching `v*`:
-
-1. Builds the Docker image (linux/amd64)
-2. Pushes to `ghcr.io/<github-owner>/feastpick`
-3. Creates a GitHub Release with notes
-
-Image tags published per release `v1.2.3`:
-
-- `1.2.3` (exact)
-- `1.2` (minor line)
-- `1` (major line)
-- `latest` (newest stable tag build)
+CI on pull requests / `main` builds the image only (no push).
 
 **First-time GHCR visibility:** after the first successful release, open  
 **GitHub → Packages → feastpick → Package settings → Change visibility → Public**  
 if you want anonymous pulls.
-
-CI (pull requests / `main`) only builds the image; it does not push.
 
 ---
 
@@ -205,7 +171,7 @@ FeastPick is built for **trusted groups**. For a public internet deploy:
 1. Put TLS in front (Caddy, Traefik, Cloudflare Tunnel, nginx)
 2. Back up the SQLite volume regularly
 3. Consider rate limits / CAPTCHA / access control (not built-in yet)
-4. Pin the image tag (`1.0.0`) instead of `latest`
+4. Pin the image tag (`1.1.0`) instead of `latest`
 
 ---
 

@@ -1,4 +1,4 @@
-"""FeastPick API — family feast planning with voting."""
+"""FeastPick API: family feast planning with voting."""
 from __future__ import annotations
 
 import time

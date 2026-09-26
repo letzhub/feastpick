@@ -223,7 +223,7 @@ def seed_demo() -> str:
         demo_cats = [
             (
                 "Drinks",
-                "What should be on the table to drink? Pick your favourites — max 2 votes.",
+                "What should be on the table to drink? Pick your favourites  -  max 2 votes.",
                 "🥂",
                 [
                     ("Champagne", "Alice", ["alcoholic"]),
@@ -255,7 +255,7 @@ def seed_demo() -> str:
             ),
             (
                 "Sides & extras",
-                "Salads, breads, cheeses — the supporting cast.",
+                "Salads, breads, cheeses  -  the supporting cast.",
                 "🥗",
                 [
                     ("Roasted root vegetables", "Bob", ["vegan"]),

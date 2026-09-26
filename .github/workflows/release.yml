@@ -48,9 +48,9 @@ jobs:
               echo "::warning::VERSION file ($FILE_VER) != tag version ($VERSION); using tag"
             fi
           fi
-          OWNER_LC=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          REPO_LC=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
-          IMAGE="${{ env.REGISTRY }}/${OWNER_LC}/${REPO_LC}"
+          # Official namespace is always letzhub/feastpick
+          IMAGE="${{ env.REGISTRY }}/letzhub/feastpick"
+          OWNER_LC=letzhub
 
           # semver parts for floating tags
           MAJOR="${VERSION%%.*}"

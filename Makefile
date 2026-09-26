@@ -22,8 +22,8 @@ logs:
 	docker compose logs -f
 
 smoke:
-	@curl -fsS http://127.0.0.1:$${FEASTPICK_PORT:-3011}/api/health && echo
-	@curl -fsS http://127.0.0.1:$${FEASTPICK_PORT:-3011}/api/events/christmas-eve-demo >/dev/null && echo "demo ok"
+	@curl -fsS http://127.0.0.1:8080/api/health && echo
+	@curl -fsS http://127.0.0.1:8080/api/events/christmas-eve-demo >/dev/null && echo "demo ok"
 
 release-check:
 	@echo "VERSION=$$(tr -d '[:space:]' < VERSION)"

@@ -1,0 +1,42 @@
+# FeastPick — production-friendly compose
+#
+# Quick start (build locally):
+#   docker compose up -d --build
+#
+# Pull a published image (after release; set GHCR_OWNER to the GitHub user/org):
+#   GHCR_OWNER=youruser FEASTPICK_VERSION=1.0.0 docker compose up -d
+#
+# Open http://localhost:3011/
+
+name: feastpick
+
+services:
+  feastpick:
+    image: ghcr.io/${GHCR_OWNER:-OWNER}/feastpick:${FEASTPICK_VERSION:-latest}
+    build:
+      context: .
+      args:
+        VERSION: ${FEASTPICK_VERSION:-1.0.0}
+        VCS_REF: ${VCS_REF:-local}
+        BUILD_DATE: ${BUILD_DATE:-}
+    container_name: feastpick
+    restart: unless-stopped
+    ports:
+      - "${FEASTPICK_PORT:-3011}:3011"
+    environment:
+      FEASTPICK_DATA: /app/data
+      FEASTPICK_VERSION: ${FEASTPICK_VERSION:-1.0.0}
+      PORT: "3011"
+    volumes:
+      - feastpick-data:/app/data
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:3011/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 8s
+
+volumes:
+  feastpick-data:

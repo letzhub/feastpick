@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build image & smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: feastpick:ci
+          build-args: |
+            VERSION=${{ github.sha }}
+            VCS_REF=${{ github.sha }}
+            BUILD_DATE=${{ github.event.head_commit.timestamp || github.event.repository.updated_at }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Smoke test container
+        run: |
+          docker run -d --name feastpick-ci -p 3011:3011 \
+            -e FEASTPICK_VERSION=ci \
+            feastpick:ci
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:3011/api/health; then
+              echo
+              curl -fsS http://127.0.0.1:3011/api/meta >/dev/null
+              curl -fsS http://127.0.0.1:3011/api/events/christmas-eve-demo >/dev/null
+              echo "Smoke OK"
+              docker rm -f feastpick-ci
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs feastpick-ci || true
+          docker rm -f feastpick-ci || true
+          echo "Health check failed"
+          exit 1

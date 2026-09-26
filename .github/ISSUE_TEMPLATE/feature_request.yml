@@ -1,0 +1,25 @@
+---
+name: Feature request
+description: Suggest an idea for FeastPick
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What pain does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How might it work in the UI or API?
+    validations:
+      required: true
+  - type: textarea
+    id: alts
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false

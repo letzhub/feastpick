@@ -69,7 +69,7 @@ ghcr.io/letzhub/feastpick:latest
 ```bash
 # optional: copy and edit
 cp .env.example .env
-# set FEASTPICK_VERSION=1.0.0 (GHCR_OWNER defaults to fabienonwork)
+# set FEASTPICK_VERSION=1.0.0 (GHCR_OWNER defaults to letzhub)
 
 export GHCR_OWNER=letzhub
 export FEASTPICK_VERSION=1.0.0
@@ -93,7 +93,7 @@ Public packages can be pulled without login.
 |----------|---------|-------------|
 | `FEASTPICK_PORT` | `3011` | Host port mapped to the app |
 | `FEASTPICK_VERSION` | `1.0.0` | Image tag / version label |
-| `GHCR_OWNER` | `fabienonwork` | GitHub user/org for GHCR image name |
+| `GHCR_OWNER` | `letzhub` | GitHub user/org for GHCR image name |
 | `FEASTPICK_DATA` | `/app/data` | Data dir **inside** the container |
 
 ---

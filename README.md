@@ -1,15 +1,13 @@
 # FeastPick
 
-**Family feast planner** — propose dishes, mark dietary tags, vote on favourites, and claim who brings what.
+**Family feast planner** - propose dishes, mark dietary tags, vote on favourites, and claim who brings what.
 
 Share one board link. Guests join with a first name. No accounts required.
 
-[![CI](https://github.com/OWNER/feastpick/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/feastpick/actions/workflows/ci.yml)
-[![Release](https://github.com/OWNER/feastpick/actions/workflows/release.yml/badge.svg)](https://github.com/OWNER/feastpick/actions/workflows/release.yml)
+[![CI](https://github.com/fabienonwork/feastpick/actions/workflows/ci.yml/badge.svg)](https://github.com/fabienonwork/feastpick/actions/workflows/ci.yml)
+[![Release](https://github.com/fabienonwork/feastpick/actions/workflows/release.yml/badge.svg)](https://github.com/fabienonwork/feastpick/actions/workflows/release.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GHCR](https://img.shields.io/badge/GHCR-feastpick-blue)](https://github.com/OWNER/feastpick/pkgs/container/feastpick)
-
-> Replace `OWNER` in URLs/badges with your GitHub user or organization after you push the repo.
+[![GHCR](https://img.shields.io/badge/GHCR-feastpick-blue)](https://github.com/fabienonwork/feastpick/pkgs/container/feastpick)
 
 ---
 
@@ -23,7 +21,7 @@ Share one board link. Guests join with a first name. No accounts required.
 - **“I’ll bring this”** claims
 - **Live-ish board** (client polls every few seconds)
 - **Demo board** seeded on first start: `/e/christmas-eve-demo`
-- **Single SQLite file** — easy backups
+- **Single SQLite file** - easy backups
 
 ---
 
@@ -34,10 +32,10 @@ Share one board link. Guests join with a first name. No accounts required.
 - [Docker](https://docs.docker.com/get-docker/) Engine 24+
 - Docker Compose v2
 
-### Option A — build from source
+### Option A - build from source
 
 ```bash
-git clone https://github.com/OWNER/feastpick.git
+git clone https://github.com/fabienonwork/feastpick.git
 cd feastpick
 docker compose up -d --build
 ```
@@ -58,22 +56,22 @@ docker compose down
 
 Data lives in the Docker volume `feastpick_feastpick-data` (or project-prefixed). To wipe data: `docker compose down -v`.
 
-### Option B — run the published image (GHCR)
+### Option B - run the published image (GHCR)
 
 After the first GitHub Release, images are published to GitHub Container Registry:
 
 ```text
-ghcr.io/OWNER/feastpick:1.0.0
-ghcr.io/OWNER/feastpick:1.0
-ghcr.io/OWNER/feastpick:latest
+ghcr.io/fabienonwork/feastpick:1.0.0
+ghcr.io/fabienonwork/feastpick:1.0
+ghcr.io/fabienonwork/feastpick:latest
 ```
 
 ```bash
 # optional: copy and edit
 cp .env.example .env
-# set GHCR_OWNER=your-github-user  and  FEASTPICK_VERSION=1.0.0
+# set FEASTPICK_VERSION=1.0.0 (GHCR_OWNER defaults to fabienonwork)
 
-export GHCR_OWNER=your-github-user
+export GHCR_OWNER=fabienonwork
 export FEASTPICK_VERSION=1.0.0
 
 # pull + run (skip local build)
@@ -95,7 +93,7 @@ Public packages can be pulled without login.
 |----------|---------|-------------|
 | `FEASTPICK_PORT` | `3011` | Host port mapped to the app |
 | `FEASTPICK_VERSION` | `1.0.0` | Image tag / version label |
-| `GHCR_OWNER` | `OWNER` | GitHub user/org for GHCR image name |
+| `GHCR_OWNER` | `fabienonwork` | GitHub user/org for GHCR image name |
 | `FEASTPICK_DATA` | `/app/data` | Data dir **inside** the container |
 
 ---

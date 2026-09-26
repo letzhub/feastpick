@@ -30,7 +30,7 @@ first name stored in the browser. For internet-facing installs you should add:
 
 - TLS termination
 - Rate limiting / bot protection
-- Optional access control (VPN, reverse-proxy auth, or an event PIN — not built-in yet)
+- Optional access control (VPN, reverse-proxy auth, or an event PIN - not built-in yet)
 - Regular backups of the SQLite volume
 
 Do not treat board links as secret authentication by themselves if the threat

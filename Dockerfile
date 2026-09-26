@@ -6,12 +6,12 @@ ARG VCS_REF=unknown
 ARG BUILD_DATE=unknown
 
 LABEL org.opencontainers.image.title="FeastPick" \
-      org.opencontainers.image.description="Family feast planner — propose dishes, badge dietary tags, vote, and claim who brings what." \
+      org.opencontainers.image.description="Family feast planner - propose dishes, badge dietary tags, vote, and claim who brings what." \
       org.opencontainers.image.version="${VERSION}" \
       org.opencontainers.image.revision="${VCS_REF}" \
       org.opencontainers.image.created="${BUILD_DATE}" \
       org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.source="https://github.com/OWNER/feastpick"
+      org.opencontainers.image.source="https://github.com/fabienonwork/feastpick"
 
 WORKDIR /app
 

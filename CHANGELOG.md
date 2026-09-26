@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rate limiting for public deployments
 - Edit dietary badges after an option is created
 
-## [1.0.0] — 2026-03-28
+## [1.0.0] - 2026-03-28
 
 First public open-source release.
 
@@ -30,8 +30,8 @@ First public open-source release.
 - Health endpoint with app version (`GET /api/health`)
 
 ### Notes
-- Identity is first-name based (localStorage) — intended for trusted groups
+- Identity is first-name based (localStorage) - intended for trusted groups
 - No accounts, email, or encryption of board contents yet
 
-[Unreleased]: https://github.com/OWNER/feastpick/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/OWNER/feastpick/releases/tag/v1.0.0
+[Unreleased]: https://github.com/fabienonwork/feastpick/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/fabienonwork/feastpick/releases/tag/v1.0.0

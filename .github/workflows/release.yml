@@ -111,7 +111,7 @@ jobs:
           import pathlib, re, sys
           ver = """${{ steps.meta.outputs.version }}"""
           text = pathlib.Path("CHANGELOG.md").read_text(encoding="utf-8")
-          # Match ## [1.0.0] — date  until next ## [
+          # Match ## [1.0.0] - date  until next ## [
           pat = rf"^## \[{re.escape(ver)}\][^\n]*\n(.*?)(?=^## \[|\Z)"
           m = re.search(pat, text, flags=re.M | re.S)
           body = m.group(1).strip() if m else f"Release v{ver}. See CHANGELOG.md."

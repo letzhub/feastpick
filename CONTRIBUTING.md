@@ -4,10 +4,10 @@ Thanks for helping improve FeastPick. Small, focused contributions are welcome.
 
 ## Ways to contribute
 
-- **Bug reports** — use a GitHub Issue; include steps, browser/OS, and FeastPick version (`/api/health`)
-- **Feature ideas** — open an Issue first so we can discuss scope
-- **Code / docs** — fork → branch → pull request
-- **Translations / accessibility** — very welcome
+- **Bug reports** - use a GitHub Issue; include steps, browser/OS, and FeastPick version (`/api/health`)
+- **Feature ideas** - open an Issue first so we can discuss scope
+- **Code / docs** - fork → branch → pull request
+- **Translations / accessibility** - very welcome
 
 ## Development setup
 
@@ -19,7 +19,7 @@ Thanks for helping improve FeastPick. Small, focused contributions are welcome.
 ### Run with Docker Compose (recommended)
 
 ```bash
-git clone https://github.com/OWNER/feastpick.git
+git clone https://github.com/fabienonwork/feastpick.git
 cd feastpick
 docker compose up -d --build
 ```

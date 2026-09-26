@@ -12,7 +12,7 @@ name: feastpick
 
 services:
   feastpick:
-    image: ghcr.io/${GHCR_OWNER:-fabienonwork}/feastpick:${FEASTPICK_VERSION:-latest}
+    image: ghcr.io/${GHCR_OWNER:-letzhub}/feastpick:${FEASTPICK_VERSION:-latest}
     build:
       context: .
       args:

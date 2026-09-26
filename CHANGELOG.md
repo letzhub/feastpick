@@ -33,5 +33,5 @@ First public open-source release.
 - Identity is first-name based (localStorage) - intended for trusted groups
 - No accounts, email, or encryption of board contents yet
 
-[Unreleased]: https://github.com/fabienonwork/feastpick/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/fabienonwork/feastpick/releases/tag/v1.0.0
+[Unreleased]: https://github.com/letzhub/feastpick/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/letzhub/feastpick/releases/tag/v1.0.0

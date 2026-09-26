@@ -11,7 +11,7 @@ LABEL org.opencontainers.image.title="FeastPick" \
       org.opencontainers.image.revision="${VCS_REF}" \
       org.opencontainers.image.created="${BUILD_DATE}" \
       org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.source="https://github.com/fabienonwork/feastpick"
+      org.opencontainers.image.source="https://github.com/letzhub/feastpick"
 
 WORKDIR /app
 

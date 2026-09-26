@@ -19,7 +19,7 @@ Thanks for helping improve FeastPick. Small, focused contributions are welcome.
 ### Run with Docker Compose (recommended)
 
 ```bash
-git clone https://github.com/fabienonwork/feastpick.git
+git clone https://github.com/letzhub/feastpick.git
 cd feastpick
 docker compose up -d --build
 ```

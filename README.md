@@ -4,10 +4,10 @@
 
 Share one board link. Guests join with a first name. No accounts required.
 
-[![CI](https://github.com/fabienonwork/feastpick/actions/workflows/ci.yml/badge.svg)](https://github.com/fabienonwork/feastpick/actions/workflows/ci.yml)
-[![Release](https://github.com/fabienonwork/feastpick/actions/workflows/release.yml/badge.svg)](https://github.com/fabienonwork/feastpick/actions/workflows/release.yml)
+[![CI](https://github.com/letzhub/feastpick/actions/workflows/ci.yml/badge.svg)](https://github.com/letzhub/feastpick/actions/workflows/ci.yml)
+[![Release](https://github.com/letzhub/feastpick/actions/workflows/release.yml/badge.svg)](https://github.com/letzhub/feastpick/actions/workflows/release.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GHCR](https://img.shields.io/badge/GHCR-feastpick-blue)](https://github.com/fabienonwork/feastpick/pkgs/container/feastpick)
+[![GHCR](https://img.shields.io/badge/GHCR-feastpick-blue)](https://github.com/letzhub/feastpick/pkgs/container/feastpick)
 
 ---
 
@@ -35,7 +35,7 @@ Share one board link. Guests join with a first name. No accounts required.
 ### Option A - build from source
 
 ```bash
-git clone https://github.com/fabienonwork/feastpick.git
+git clone https://github.com/letzhub/feastpick.git
 cd feastpick
 docker compose up -d --build
 ```
@@ -61,9 +61,9 @@ Data lives in the Docker volume `feastpick_feastpick-data` (or project-prefixed)
 After the first GitHub Release, images are published to GitHub Container Registry:
 
 ```text
-ghcr.io/fabienonwork/feastpick:1.0.0
-ghcr.io/fabienonwork/feastpick:1.0
-ghcr.io/fabienonwork/feastpick:latest
+ghcr.io/letzhub/feastpick:1.0.0
+ghcr.io/letzhub/feastpick:1.0
+ghcr.io/letzhub/feastpick:latest
 ```
 
 ```bash
@@ -71,7 +71,7 @@ ghcr.io/fabienonwork/feastpick:latest
 cp .env.example .env
 # set FEASTPICK_VERSION=1.0.0 (GHCR_OWNER defaults to fabienonwork)
 
-export GHCR_OWNER=fabienonwork
+export GHCR_OWNER=letzhub
 export FEASTPICK_VERSION=1.0.0
 
 # pull + run (skip local build)

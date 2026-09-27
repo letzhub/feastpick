@@ -50,7 +50,67 @@ CATEGORY_ICONS = (
     "🥗", "🍲", "🥘", "🍖", "🦃", "🍝",
     "🍰", "🥧", "🍮", "🧀", "🥖", "🍿",
     "🎄", "✨", "🔥", "❄️", "🎁", "⭐",
+    "🎃", "🐰", "🌸", "☀️", "🎆", "❤️",
 )
+
+# Per-event colour themes (id -> display meta). CSS maps id -> palette.
+THEMES = {
+    "classic": {
+        "id": "classic",
+        "label": "Classic feast",
+        "icon": "🍽️",
+        "description": "Warm amber table default",
+    },
+    "christmas": {
+        "id": "christmas",
+        "label": "Christmas",
+        "icon": "🎄",
+        "description": "Evergreen, crimson, and gold",
+    },
+    "halloween": {
+        "id": "halloween",
+        "label": "Halloween",
+        "icon": "🎃",
+        "description": "Pumpkin orange and purple night",
+    },
+    "easter": {
+        "id": "easter",
+        "label": "Easter",
+        "icon": "🐰",
+        "description": "Soft pastels and spring light",
+    },
+    "thanksgiving": {
+        "id": "thanksgiving",
+        "label": "Thanksgiving",
+        "icon": "🦃",
+        "description": "Harvest amber and chestnut",
+    },
+    "newyear": {
+        "id": "newyear",
+        "label": "New Year",
+        "icon": "🎆",
+        "description": "Midnight navy and champagne gold",
+    },
+    "valentine": {
+        "id": "valentine",
+        "label": "Valentine",
+        "icon": "❤️",
+        "description": "Rose and deep red",
+    },
+    "summer": {
+        "id": "summer",
+        "label": "Summer picnic",
+        "icon": "☀️",
+        "description": "Sky blue and coral",
+    },
+}
+
+DEFAULT_THEME = "classic"
+
+
+def normalize_theme(raw: Any) -> str:
+    key = str(raw or "").strip().lower()
+    return key if key in THEMES else DEFAULT_THEME
 
 
 def _normalize_tags(raw: Any) -> list[str]:
@@ -124,6 +184,7 @@ def init_db() -> None:
         )
         _ensure_column(conn, "categories", "icon", "TEXT NOT NULL DEFAULT '🍽️'")
         _ensure_column(conn, "options", "tags", "TEXT NOT NULL DEFAULT '[]'")
+        _ensure_column(conn, "events", "theme", f"TEXT NOT NULL DEFAULT '{DEFAULT_THEME}'")
 
 
 def new_id() -> str:
@@ -190,12 +251,14 @@ def event_bundle(conn: sqlite3.Connection, event_id: str) -> dict[str, Any] | No
                 "options": options,
             }
         )
+    theme = normalize_theme(ev["theme"] if "theme" in ev.keys() else DEFAULT_THEME)
     return {
         "id": ev["id"],
         "slug": ev["slug"],
         "title": ev["title"],
         "event_date": ev["event_date"],
         "max_votes": ev["max_votes"],
+        "theme": theme,
         "created_at": ev["created_at"],
         "categories": out_cats,
     }
@@ -216,8 +279,8 @@ def seed_demo() -> str:
         slug = "christmas-eve-demo"
         now = time.time()
         conn.execute(
-            "INSERT INTO events (id, slug, title, event_date, max_votes, created_at) VALUES (?,?,?,?,?,?)",
-            (eid, slug, "Christmas Eve Family Meal", "2026-12-24", 2, now),
+            "INSERT INTO events (id, slug, title, event_date, max_votes, created_at, theme) VALUES (?,?,?,?,?,?,?)",
+            (eid, slug, "Christmas Eve Family Meal", "2026-12-24", 2, now, "christmas"),
         )
         # (name, desc, icon, [(option, author, tags), ...])
         demo_cats = [
@@ -304,6 +367,15 @@ def seed_demo() -> str:
 
 def _backfill_demo_icons_tags(conn: sqlite3.Connection, event_id: str) -> None:
     """Fill default icons/tags on existing demo rows that lack them."""
+    # Prefer Christmas theme on the christmas demo board
+    try:
+        row = conn.execute("SELECT theme FROM events WHERE id=?", (event_id,)).fetchone()
+        if row is not None:
+            theme = (row["theme"] if "theme" in row.keys() else "") or ""
+            if not theme or theme == DEFAULT_THEME:
+                conn.execute("UPDATE events SET theme=? WHERE id=?", ("christmas", event_id))
+    except Exception:
+        pass
     icon_by_name = {
         "drinks": "🥂",
         "main dishes": "🍽️",

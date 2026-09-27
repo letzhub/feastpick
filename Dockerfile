@@ -4,7 +4,7 @@
 
 FROM python:3.13-alpine AS runtime
 
-ARG VERSION=1.1.0
+ARG VERSION=1.2.0
 ARG VCS_REF=local
 ARG BUILD_DATE=
 

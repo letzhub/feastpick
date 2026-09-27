@@ -14,7 +14,7 @@ services:
     build:
       context: .
       args:
-        VERSION: ${FEASTPICK_VERSION:-1.1.0}
+        VERSION: ${FEASTPICK_VERSION:-1.2.0}
         VCS_REF: ${VCS_REF:-local}
         BUILD_DATE: ${BUILD_DATE:-}
     container_name: feastpick
@@ -23,7 +23,7 @@ services:
       - "8080:8080"
     environment:
       FEASTPICK_DATA: /app/data
-      FEASTPICK_VERSION: ${FEASTPICK_VERSION:-1.1.0}
+      FEASTPICK_VERSION: ${FEASTPICK_VERSION:-1.2.0}
       PORT: "8080"
     volumes:
       - feastpick-data:/app/data

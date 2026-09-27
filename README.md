@@ -59,8 +59,8 @@ Data lives in the Docker volume `feastpick_feastpick-data` (or project-prefixed)
 Published images (after a release):
 
 ```text
-ghcr.io/letzhub/feastpick:1.1.0
-ghcr.io/letzhub/feastpick:1.1
+ghcr.io/letzhub/feastpick:1.2.0
+ghcr.io/letzhub/feastpick:1.2
 ghcr.io/letzhub/feastpick:latest
 ```
 
@@ -70,7 +70,7 @@ Pin a version with `FEASTPICK_VERSION` in `.env` (see `.env.example`), then `doc
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `FEASTPICK_VERSION` | `1.1.0` | Image tag / version label |
+| `FEASTPICK_VERSION` | `1.2.0` | Image tag / version label |
 | `FEASTPICK_DATA` | `/app/data` | Data dir inside the container |
 | `PORT` | `8080` | Listen port (keep 8080 unless you know you need another) |
 
@@ -122,8 +122,8 @@ FeastPick follows [Semantic Versioning](https://semver.org/) and [Keep a Changel
 ```bash
 # after updating VERSION + CHANGELOG
 git add VERSION CHANGELOG.md
-git commit -m "chore(release): v1.1.0"
-git tag -a v1.1.0 -m "v1.1.0"
+git commit -m "chore(release): v1.2.0"
+git tag -a v1.2.0 -m "v1.2.0"
 git push origin main --tags
 ```
 
@@ -171,7 +171,7 @@ FeastPick is built for **trusted groups**. For a public internet deploy:
 1. Put TLS in front (Caddy, Traefik, Cloudflare Tunnel, nginx)
 2. Back up the SQLite volume regularly
 3. Consider rate limits / CAPTCHA / access control (not built-in yet)
-4. Pin the image tag (`1.1.0`) instead of `latest`
+4. Pin the image tag (`1.2.0`) instead of `latest`
 
 ---
 

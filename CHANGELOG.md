@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Optional event PIN / join gate
 - Rate limiting for public deployments
 - Edit dietary badges after an option is created
+- Custom colours beyond preset themes
+- CSV export of bring list
+
+## [1.2.0] - 2026-09-27
+
+### Added
+- **Event colour themes** (classic, Christmas, Halloween, Easter, Thanksgiving, New Year, Valentine, Summer)
+- Theme picker on create only (theme locked after create; board still applies it)
+- **Print** board action with print-friendly layout: selections, votes, who chose, who brings what
+- **Share** board action: copy link to clipboard + toast
+- Random feast title generator on create, with Shuffle
+- `ROADMAP.md` for planned work after local testing
+
+### Changed
+- Create form date defaults to **today** (local calendar)
+- Board header: Share and Print on the right (no full-width link field)
 
 ## [1.1.0] - 2026-09-26
 
@@ -38,14 +54,10 @@ First public open-source release.
 - Live board refresh (client poll)
 - Seeded Christmas Eve demo board (`/e/christmas-eve-demo`)
 - SQLite persistence via Docker volume
-- Docker image + `docker compose` self-host flow
-- GitHub Actions: CI build + GHCR publish on version tags
-- Health endpoint with app version (`GET /api/health`)
+- Docker Compose + GHCR image packaging
+- MIT license
 
-### Notes
-- Identity is first-name based (localStorage) - intended for trusted groups
-- No accounts, email, or encryption of board contents yet
-
-[Unreleased]: https://github.com/letzhub/feastpick/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/letzhub/feastpick/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/letzhub/feastpick/releases/tag/v1.2.0
 [1.1.0]: https://github.com/letzhub/feastpick/releases/tag/v1.1.0
 [1.0.0]: https://github.com/letzhub/feastpick/releases/tag/v1.0.0

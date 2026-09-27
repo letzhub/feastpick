@@ -12,11 +12,14 @@ from pydantic import BaseModel, Field
 
 from app.db import (
     CATEGORY_ICONS,
+    DEFAULT_THEME,
     TAG_META,
+    THEMES,
     db,
     event_bundle,
     init_db,
     new_id,
+    normalize_theme,
     seed_demo,
     slugify,
     tags_to_json,
@@ -55,8 +58,9 @@ class CreateEvent(BaseModel):
     title: str = Field(min_length=1, max_length=120)
     event_date: str = Field(min_length=8, max_length=32)
     max_votes: int = Field(default=2, ge=1, le=10)
+    theme: str = Field(default=DEFAULT_THEME, max_length=32)
     categories: list[dict[str, str]] = Field(default_factory=list)
-    # categories: [{name, description}]
+    # categories: [{name, description, icon}]
 
 
 class PatchEvent(BaseModel):
@@ -114,6 +118,8 @@ def meta() -> dict[str, Any]:
             {"id": k, "label": v["label"], "icon": v["icon"]}
             for k, v in TAG_META.items()
         ],
+        "themes": list(THEMES.values()),
+        "default_theme": DEFAULT_THEME,
     }
 
 
@@ -152,10 +158,11 @@ def create_event(body: CreateEvent) -> dict[str, Any]:
         {"name": "Mains", "description": "Main courses", "icon": "🍽️"},
         {"name": "Desserts", "description": "Sweet finishes", "icon": "🍰"},
     ]
+    theme = normalize_theme(body.theme)
     with db() as conn:
         conn.execute(
-            "INSERT INTO events (id, slug, title, event_date, max_votes, created_at) VALUES (?,?,?,?,?,?)",
-            (eid, slug, title, body.event_date, body.max_votes, now),
+            "INSERT INTO events (id, slug, title, event_date, max_votes, created_at, theme) VALUES (?,?,?,?,?,?,?)",
+            (eid, slug, title, body.event_date, body.max_votes, now, theme),
         )
         for i, c in enumerate(cats):
             name = (c.get("name") or "").strip()
